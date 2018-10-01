@@ -1,0 +1,5 @@
+# Rstudio project files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
