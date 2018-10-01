@@ -4,5 +4,6 @@
 .RData
 .Ruserdata
 
-# Ignore data
+# Ignore specific folders
 data/
+output/
