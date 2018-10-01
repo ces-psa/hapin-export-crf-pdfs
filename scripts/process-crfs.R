@@ -80,6 +80,30 @@ crfs_pages <- crfs_df %>%
     order = seq(from = 1, to = n()) %>%
       stringr::str_pad(width = 2, side = "left", pad = "0")
   )
+  
+  
+  
+  
+#------------------------------------------------------------------------------*
+# Write indivicual crfs ----
+#------------------------------------------------------------------------------*
+# Needs pdftk to makage the pdfs through the command line
+# https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
+#------------------------------------------------------------------------------*
+
+# Generate export instructions
+export_isntructions <- crfs_pages %>%
+  mutate(
+    instruction = paste(
+      paste0("pdftk A=\"", gt_emory_crfs_file$file, "\""),
+      paste0("cat A", first_page, "-", last_page),
+      "output",
+      paste0(
+        "\"output/", order, "_",
+        gt_emory_crfs_file$export_time, "_", crf_name, ".pdf\""
+      )
+    )
+  )
 
 
 
