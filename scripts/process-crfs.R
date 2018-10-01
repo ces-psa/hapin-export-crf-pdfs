@@ -67,6 +67,21 @@ crfs_df <- data_frame(
   select(page_num, crf_name, page_text, pages)
 
 
+# Get page ranges
+crfs_pages <- crfs_df %>%
+  group_by(crf_name) %>%
+  summarize(
+    first_page = min(page_num),
+    last_page = max(page_num)
+  ) %>%
+  ungroup() %>%
+  arrange(first_page) %>%
+  mutate(
+    order = seq(from = 1, to = n()) %>%
+      stringr::str_pad(width = 2, side = "left", pad = "0")
+  )
+
+
 
 
 # End of script
