@@ -37,6 +37,36 @@ gt_emory_crfs_file <- list.files(
 all_crfs <- pdf_text(pdf = gt_emory_crfs_file$file)
 
 
+# Work on a data.frame
+crfs_df <- data_frame(
+  pages = all_crfs
+) %>%
+  # Process the text
+  mutate(
+    page_num = seq(from = 1, to = n()),
+    page_text = map_chr(
+      pages,
+      ~ .x %>%
+        gsub(
+          pattern = " *Confidential *\n[^\n]+\n *Page *[0-9]+ *of *[0-9]+\n +",
+          replacement = "",
+          x = .
+        )
+    ),
+    crf_name = map_chr(
+      page_text,
+      ~.x %>%
+        strsplit(split = "\n") %>%
+        unlist() %>%
+        magrittr::extract2(1) %>%
+        gsub(" *Confidential *", "", .)
+    ) %>%
+      if_else(. == "", NA_character_, .) %>%
+      zoo::na.locf.default()
+  ) %>%
+  select(page_num, crf_name, page_text, pages)
+
+
 
 
 # End of script
