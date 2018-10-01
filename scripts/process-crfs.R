@@ -106,6 +106,10 @@ export_isntructions <- crfs_pages %>%
   )
 
 
+# Call pdftk for each crf
+export_isntructions %>%
+  pull(instruction) %>%
+  walk(system)
 
 
 # End of script
