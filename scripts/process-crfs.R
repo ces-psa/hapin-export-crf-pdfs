@@ -16,4 +16,23 @@ library(package = "pdftools")  # read pdf contents using the poppler library
 
 
 
+#------------------------------------------------------------------------------*
+# Read in pdf ----
+#------------------------------------------------------------------------------*
+
+# get most recent file
+gt_emory_crfs_file <- list.files(
+  path = "data/crfs", pattern = "MainSt.+pdf", full.names = TRUE
+) %>%
+  data_frame(
+    file = .,
+    export_time = file %>%
+      gsub(".+?_([-0-9_]+).csv", "\\1", .) %>%
+      lubridate::ymd(tz = "America/New_York")
+  ) %>%
+  slice(which.max(export_time))
+
+
+
+
 # End of script
