@@ -33,6 +33,10 @@ gt_emory_crfs_file <- list.files(
   slice(which.max(export_time))
 
 
+# Read all pages
+all_crfs <- pdf_text(pdf = gt_emory_crfs_file$file)
+
+
 
 
 # End of script
