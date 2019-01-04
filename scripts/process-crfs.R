@@ -24,7 +24,7 @@ library(package = "pdftools")  # read pdf contents using the poppler library
 gt_emory_crfs_file <- list.files(
   path = "data/crfs", pattern = "MainSt.+pdf", full.names = TRUE
 ) %>%
-  data_frame(
+  tibble(
     file = .,
     export_time = file %>%
       gsub(".+?_([-0-9_]+).csv", "\\1", .) %>%
@@ -38,7 +38,7 @@ all_crfs <- pdf_text(pdf = gt_emory_crfs_file$file)
 
 
 # Work on a data.frame
-crfs_df <- data_frame(
+crfs_df <- tibble(
   pages = all_crfs
 ) %>%
   # Process the text
